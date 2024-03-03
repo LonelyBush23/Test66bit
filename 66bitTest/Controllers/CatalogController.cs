@@ -23,53 +23,6 @@ namespace _66bitTest.Controllers
             return View(await _context.Human.ToListAsync());
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProducts()
-        //{
-        //    var res = await _context.Human.ToListAsync();
-        //    return Ok(res);
-        //}
-
-        // GET: Humen/Details/5
-        //public async Task<IActionResult> Details(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var human = await _context.Human
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (human == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(human);
-        //}
-
-        // GET: Humen/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        // POST: Humen/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,FirstName,SecondName,Gender,BirthDate,Country")] Human human)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(human);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(human);
-        //}
-
         // GET: Humen/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -136,51 +89,20 @@ namespace _66bitTest.Controllers
             return View(human);
         }
 
-        //GET: Humen/Delete/5
-        //public async Task<IActionResult> Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var human = await _context.Human
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (human == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(human);
-        //}
-
         public async Task<IActionResult> Delete(long? id)
         {
             var human = await _context.Human.FindAsync(id);
             if (human != null)
             {
+                var team = human.Team;
                 _context.Human.Remove(human);
+                if (team.People.Count == 1)
+                    _context.Team.Remove(team);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-
-        // POST: Humen/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(long id)
-        //{
-        //    var human = await _context.Human.FindAsync(id);
-        //    if (human != null)
-        //    {
-        //        _context.Human.Remove(human);
-        //    }
-
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         private bool HumanExists(long id)
         {
