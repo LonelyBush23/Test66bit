@@ -1,0 +1,85 @@
+﻿@model _66bitTest.Models.Human
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    .col-md-4 {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        color: darkgray;
+    }
+
+    .form-control{
+        text-align: center;
+    }
+
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Главная</h1>
+    <h4>Создание человечка</h4>
+</div>
+
+<hr />
+<div class="table">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondName" class="control-label"></label>
+                <input asp-for="SecondName" class="form-control" />
+                <span asp-validation-for="SecondName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class=""></label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="Male">Мужской</option>
+                    <option value="Female">Женский</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" type="date" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <select asp-for="Country" class="form-control">
+                    <option value="Россия">Россия</option>
+                    <option value="США">США</option>
+                    <option value="Италия">Италия</option>
+                </select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Team.Title" class="control-label"></label>
+                <input asp-for="Team.Title" class="form-control" list="team" />
+                <datalist id="team">
+                    @foreach (var t in ViewBag.Teams)
+                    {
+                        <option>@t.Title</option>
+                    }
+                </datalist>
+                <span asp-validation-for="Team.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
