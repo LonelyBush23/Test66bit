@@ -1,6 +1,7 @@
 # 66bitTest
 
-Uploading clideo_editor_4219328561444de789e0bae925b9c4ed.mp4…
+Видеоотчет :)
+https://github.com/LonelyBush23/Test66bit/assets/104368430/8d04351a-c3d5-4704-8483-81f1c9a3dda8
 
 Для работы нужно изменить appsettings.json (бд - PostgreSQL):
 "DefaultConnection": "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=PASSWORD"
