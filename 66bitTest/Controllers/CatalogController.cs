@@ -61,16 +61,21 @@ namespace _66bitTest.Controllers
             {
                 try
                 {
+                    var oldTeam = await _context.Team.Where(x=>x.People.Any(y=> y == human)).FirstOrDefaultAsync();
                     var teamName = human.Team.Title;
-                    var team = await _context.Team.Where(x => x.Title == teamName).FirstOrDefaultAsync();
-                    if (team != null)
-                        human.Team = team;
+                    var currentTeam = await _context.Team.Where(x => x.Title == teamName).FirstOrDefaultAsync();
+                    if (currentTeam != null)
+                        human.Team = currentTeam;
                     else
                     {
                         var newTeam = new Team { Title = teamName, Direction = _context.Direction.First() };
                         human.Team = newTeam;
                     }
                     _context.Update(human);
+                    
+                    await _context.SaveChangesAsync();
+                    if (oldTeam.People.Count == 0)
+                        _context.Team.Remove(oldTeam);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
